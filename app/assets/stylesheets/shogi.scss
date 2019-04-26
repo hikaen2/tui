@@ -1,0 +1,40 @@
+// Place all the styles related to the shogi controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.shogi {
+    border-collapse: collapse;
+    td {
+        border: 1px solid black;
+        width: 3.4rem;
+        height: 3.4rem;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 3rem;
+    }
+    td.d {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        font-size: 1.5rem;
+    }
+    td.l {
+        border-top: none;
+        border-bottom: none;
+        border-right: none;
+        font-size: 1.5rem;
+    }
+}
+
+.rotate {
+    transform: rotate(180deg);
+    display: inline-block;
+}
+
+.container {
+    display: flex;
+}
+
+div {
+    margin: 1rem;
+}
