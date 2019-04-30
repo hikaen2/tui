@@ -22,8 +22,8 @@
       <tr>
         <% (1..9).to_a.reverse.each do |file| %>
           <% piece = @pos.look_at(file, rank) %>
-          <td class="<%= 'is-last' if (@last.file_to == file && @last.rank_to == rank) || (@last.file_from == file && @last.rank_from == rank) %> <%= piece == nil ? '' : piece.side == 0 ? 'black' : 'white' %>">
-            <span class="<%= 'rotate' if !piece.nil? && piece.side == 1 %>"><%= piece %></span>
+          <td class="<%= piece == nil ? '' : piece.side == 0 ? 'black' : 'white' %><%= ' highlight' if (@last.file_to == file && @last.rank_to == rank) || (@last.file_from == file && @last.rank_from == rank) %>">
+            <span><%= piece %></span>
           </td>
         <% end %>
         <td class="l"><%= ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'][rank] %></td>

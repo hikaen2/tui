@@ -4,10 +4,11 @@
 
 .capturedPiece-white{width: 5em}
 .capturedPiece-black{width: 5em; writing-mode: vertical-rl; text-align: right;}
-.is-last{ background-color: red; color: white;}
+.highlight{ background-color: red; color: white;}
 .black{background-image: url("/black-piece.svg");background-repeat: no-repeat;}
 .white{background-image: url("/white-piece.svg");background-repeat: no-repeat;background-position-y: bottom;}
 .piece{ }
+
 table.shogi {
     border-collapse: collapse;
     td {
@@ -33,6 +34,11 @@ table.shogi {
 }
 
 .rotate {
+    transform: rotate(180deg);
+    display: inline-block;
+}
+
+td.white span {
     transform: rotate(180deg);
     display: inline-block;
 }
