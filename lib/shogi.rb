@@ -126,7 +126,11 @@ module Shogi
         @pieces.delete_at(@pieces.find_index{|e| e.file == move.file_to && e.rank == move.rank_to})
       end
 
-      @pieces.delete_at(@pieces.find_index{|e| e.file == move.file_from && e.rank == move.rank_from})
+      if move.file_from == 0
+        @pieces.delete_at(@pieces.find_index{|e| e.side == move.side && e.file == 0 && e.rank == 0 && e.type == move.type})
+      else
+        @pieces.delete_at(@pieces.find_index{|e| e.file == move.file_from && e.rank == move.rank_from})
+      end
 
       @pieces << Piece.new(move.side, move.file_to, move.rank_to, move.type)
       @side = @side == Side::BLACK ? Side::WHITE : Side::BLACK
