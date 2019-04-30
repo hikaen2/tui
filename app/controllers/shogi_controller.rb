@@ -2,23 +2,19 @@ require './lib/pos'
 
 class ShogiController < ApplicationController
 
-
-  def guhaa
-  end
-
-  def list
-    @files = Dir.glob('/home/taro/src/test/tui/*').map do |e|
+  def index
+    p File.expand_path(File.join(Rails.configuration.log_path, '*.log'))
+    @files = Dir.glob(File.join(Rails.configuration.log_path, '*.log')).map do |e|
       {
-        path: e,
-        name: File.basename(e),
-        basename: File.basename(e, File.extname(e)),
-        mtime: File.mtime(e),
-        size: File.size(e),
+          path: e,
+          name: File.basename(e),
+          mtime: File.mtime(e),
+          size: File.size(e),
       }
     end
   end
 
-  def index
+  def view
 
     str=<<~EOS
 LOGIN:tenuki OK

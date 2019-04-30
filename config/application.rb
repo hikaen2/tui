@@ -29,5 +29,8 @@ module Tui
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+
+    config.log_path = 'log'
   end
 end
