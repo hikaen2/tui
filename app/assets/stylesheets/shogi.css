@@ -1,0 +1,37 @@
+.capturedPiece-white {
+  width: 5em; }
+
+.capturedPiece-black {
+  width: 5em;
+  writing-mode: vertical-rl;
+  text-align: right; }
+
+table.shogi {
+  border-collapse: collapse; }
+  table.shogi td {
+    border: 1px solid black;
+    width: 4rem;
+    height: 4rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 3rem; }
+  table.shogi td.d {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-size: 1.5rem; }
+  table.shogi td.l {
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+    font-size: 1.5rem; }
+
+.rotate {
+  transform: rotate(180deg);
+  display: inline-block; }
+
+.flex-container {
+  display: flex; }
+
+div {
+  margin: 1rem; }

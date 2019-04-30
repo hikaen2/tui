@@ -2,7 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.capturedPiece{width: 5em}
+.capturedPiece-white{width: 5em}
+.capturedPiece-black{width: 5em;    writing-mode: vertical-rl; text-align: right;}
+
+
 table.shogi {
     border-collapse: collapse;
     td {
