@@ -1,16 +1,18 @@
 <table>
-  <tbody>
+  <thead>
   <tr>
     <th>name</th>
     <th>bytes</th>
+    <th>mtime</th>
   </tr>
-
+  </thead>
+  <tbody>
   <% @files.each do |file| %>
     <tr>
-      <td><%= link_to file[:name], hogee_path(file[:name]) %></td>
+      <td><%= link_to file[:name], shogi_view_path(file[:name]) %></td>
       <td><%= file[:size] %></td>
+      <td><%= file[:mtime] %></td>
     </tr>
   <% end %>
-
   </tbody>
 </table>

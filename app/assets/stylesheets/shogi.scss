@@ -6,8 +6,8 @@ table.shogi {
     border-collapse: collapse;
     td {
         border: 1px solid black;
-        width: 3.4rem;
-        height: 3.4rem;
+        width: 4rem;
+        height: 4rem;
         text-align: center;
         vertical-align: middle;
         font-size: 3rem;
@@ -31,7 +31,7 @@ table.shogi {
     display: inline-block;
 }
 
-.container {
+.flex-container {
     display: flex;
 }
 
