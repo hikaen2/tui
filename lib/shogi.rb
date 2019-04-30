@@ -70,7 +70,7 @@ module Shogi
 
     def to_s
       a = ['０', '１', '２', '３', '４', '５', '６', '７', '８', '９']
-      b = ['〇', '一', '二', '三', '四', '五', '六', '７', '八', '九']
+      b = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九']
       c = ['歩', '香', '桂', '銀', '金', '角', '飛', '王', 'と', '杏', '圭', '全', '〓', '馬', '龍']
       return sprintf('%s%s%s%s(%s%s)', @side == Side::BLACK ? '▲' : '△', a[@file_to], b[@rank_to], c[@type], @file_from, @rank_from) if @rank_from != 0
       return sprintf('%s%s%s%s打', @side == Side::BLACK ? '▲' : '△', a[@file_to], b[@rank_to], c[@type]) if @rank_from == 0
