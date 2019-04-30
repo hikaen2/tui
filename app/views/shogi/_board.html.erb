@@ -21,7 +21,9 @@
     <% (1..9).each do |y| %>
       <tr>
         <% (1..9).to_a.reverse.each do |x| %>
-          <td><span class="<%= 'rotate' if !@pos.look_at(x, y).nil? and @pos.look_at(x, y).side == 1 %>"><%= @pos.look_at(x, y) %></span></td>
+          <td class="<%= 'is-last' if (@last.file_to == x && @last.rank_to == y) || (@last.file_from == x && @last.rank_from == y)  %>">
+            <span class="<%= 'rotate' if !@pos.look_at(x, y).nil? and @pos.look_at(x, y).side == 1 %>"><%= @pos.look_at(x, y) %></span>
+          </td>
         <% end %>
         <td class="l"><%= ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'][y] %></td>
       </tr>

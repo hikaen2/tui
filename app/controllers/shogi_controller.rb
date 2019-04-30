@@ -17,8 +17,10 @@ class ShogiController < ApplicationController
     str = IO.read(File.join(Rails.configuration.log_path, params[:id]))
     @moves = str.lines.select {|e| /^[+-]\d{4}\D{2}/ === e}.map {|e| Shogi::Move.parse(e)}
     @pos = Shogi::Position.new
+    @last = nil
     @moves.each do |e|
       @pos.do_move(e)
+      @last = e
     end
   end
 
@@ -27,8 +29,10 @@ class ShogiController < ApplicationController
     str = IO.read(File.join(Rails.configuration.log_path, params[:id]))
     @moves = str.lines.select {|e| /^[+-]\d{4}\D{2}/ === e}.map {|e| Shogi::Move.parse(e)}
     @pos = Shogi::Position.new
+    @last = nil
     @moves.each.with_index(1) do |e, i|
       @pos.do_move(e)
+      @last = e
       break if i >= params[:moves].to_i
     end
     render partial: "board"
