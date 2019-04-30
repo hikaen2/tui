@@ -3,6 +3,9 @@
 
 
 $(function () {
+
+    $('#myTable').DataTable();
+
     $("select#kifu").change(function () {
         const url = 'partial/' + $(this).data('filename') + '/' + this.value;
         $.get(url, function (data) {
@@ -10,3 +13,4 @@ $(function () {
         });
     });
 });
+
