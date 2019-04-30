@@ -18,21 +18,23 @@
       <td class="d">2</td>
       <td class="d">1</td>
     </tr>
-    <% (1..9).each do |y| %>
+    <% (1..9).each do |rank| %>
       <tr>
-        <% (1..9).to_a.reverse.each do |x| %>
-		  <td class="<%= 'is-last' if (@last.file_to == x && @last.rank_to == y) || (@last.file_from == x && @last.rank_from == y) %> <%= @pos.look_at(x, y) == nil ? '' : @pos.look_at(x, y).side == 0 ? 'black' : 'white' %>">
-            <span class="<%= 'rotate' if !@pos.look_at(x, y).nil? and @pos.look_at(x, y).side == 1 %>"><%= @pos.look_at(x, y) %></span>
+        <% (1..9).to_a.reverse.each do |file| %>
+          <% piece = @pos.look_at(file, rank) %>
+          <td class="<%= 'is-last' if (@last.file_to == file && @last.rank_to == rank) || (@last.file_from == file && @last.rank_from == rank) %> <%= piece == nil ? '' : piece.side == 0 ? 'black' : 'white' %>">
+            <span class="<%= 'rotate' if !piece.nil? && piece.side == 1 %>"><%= piece %></span>
           </td>
         <% end %>
-        <td class="l"><%= ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'][y] %></td>
+        <td class="l"><%= ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'][rank] %></td>
       </tr>
     <% end %>
     </tbody>
   </table>
 </div>
+
 <div class="capturedPiece-black">
-<span style="writing-mode: vertical-rl; text-align:right; font-size: 3rem;">
-  <%= @pos.hand_black.map(&:to_s).join %>
-</span>
+  <span style="writing-mode: vertical-rl; text-align:right; font-size: 3rem;">
+    <%= @pos.hand_black.map(&:to_s).join %>
+  </span>
 </div>
