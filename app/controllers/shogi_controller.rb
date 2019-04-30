@@ -19,7 +19,6 @@ class ShogiController < ApplicationController
     @pos = Shogi::Position.new
     @moves.each do |e|
       @pos.do_move(e)
-      p @pos.hand_black.map(&:to_s).join
     end
   end
 
