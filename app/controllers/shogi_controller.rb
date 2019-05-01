@@ -14,6 +14,8 @@ class ShogiController < ApplicationController
 
   def view
     str = IO.read(File.join(Rails.configuration.log_path, params[:id]))
+    @name_black = str[/^Name\+:(.+)$/, 1]
+    @name_white = str[/^Name-:(.+)$/, 1]
     @moves = str.lines.select {|e| /^[+-]\d{4}\D{2}/ === e}.map {|e| Shogi::Move.parse(e)}
     @pos = Shogi::Position.new
     @last = nil
