@@ -9,8 +9,7 @@ $(function () {
     $("select#kifu").change(function () {
         const url = 'partial/' + $(this).data('filename') + '/' + this.value;
         $.get(url, function (data) {
-            $('#board').html( data );
+            $('#board').html(data);
         });
     });
 });
-
