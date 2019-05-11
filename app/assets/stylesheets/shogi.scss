@@ -5,8 +5,6 @@
 .capturedPiece-white{width: 5em}
 .capturedPiece-black{width: 5em; writing-mode: vertical-rl; text-align: right;}
 .is-last{ background-color: red; color: white;}
-.black{background-image: url("/black-piece.svg");background-repeat: no-repeat;}
-.white{background-image: url("/white-piece.svg");background-repeat: no-repeat;background-position-y: bottom;}
 .piece{ }
 table.shogi {
     border-collapse: collapse;
@@ -43,4 +41,77 @@ table.shogi {
 
 div {
     margin: 1rem;
+}
+
+
+@font-face {
+  font-family: 'shogi';
+  src:  url('/fonts/shogi.eot?uu3sta');
+  src:  url('/fonts/shogi.eot?uu3sta#iefix') format('embedded-opentype'),
+    url('/fonts/shogi.ttf?uu3sta') format('truetype'),
+    url('/fonts/shogi.woff?uu3sta') format('woff'),
+    url('/fonts/shogi.svg?uu3sta#shogi') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+span  {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'shogi' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.shogi-kinsho:before {
+  content: "\91d1";
+}
+.shogi-gin:before {
+  content: "\9280";
+}
+.shogi-gyoku:before {
+  content: "\7389";
+}
+.shogi-hisya:before {
+  content: "\98db";
+}
+.shogi-hohei:before {
+  content: "\6b69";
+}
+.shogi-kaku:before {
+  content: "\89d2";
+}
+.shogi-keuma:before {
+  content: "\6842";
+}
+.shogi-kyousya:before {
+  content: "\9999";
+}
+.shogi-narigin:before {
+  content: "\5168";
+}
+.shogi-narikei:before {
+  content: "\572d";
+}
+.shogi-narikyou:before {
+  content: "\674f";
+}
+.shogi-ou:before {
+  content: "\738b";
+}
+.shogi-ryu:before {
+  content: "\9f8d";
+}
+.shogi-tokin:before {
+  content: "\3068";
+}
+.shogi-uma:before {
+  content: "\99ac";
 }
