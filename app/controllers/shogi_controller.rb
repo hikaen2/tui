@@ -2,7 +2,6 @@ require './lib/shogi'
 
 class ShogiController < ApplicationController
   def dir
-    p File.expand_path(File.join(Rails.configuration.log_path, '*.log'))
     @files = Dir.glob(File.join(Rails.configuration.log_path, '*.log')).map do |e|
       {
           path: e,
@@ -15,6 +14,8 @@ class ShogiController < ApplicationController
 
   def view
     str = IO.read(File.join(Rails.configuration.log_path, params[:id]))
+    @name_black = str[/^Name\+:(.+)$/, 1]
+    @name_white = str[/^Name-:(.+)$/, 1]
     @moves = str.lines.select {|e| /^[+-]\d{4}\D{2}/ === e}.map {|e| Shogi::Move.parse(e)}
     @pos = Shogi::Position.new
     @last = nil
@@ -25,7 +26,6 @@ class ShogiController < ApplicationController
   end
 
   def board
-    p params[:moves]
     str = IO.read(File.join(Rails.configuration.log_path, params[:id]))
     @moves = str.lines.select {|e| /^[+-]\d{4}\D{2}/ === e}.map {|e| Shogi::Move.parse(e)}
     @pos = Shogi::Position.new

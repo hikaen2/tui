@@ -5,42 +5,50 @@
 .capturedPiece-white{width: 5em}
 .capturedPiece-black{width: 5em; writing-mode: vertical-rl; text-align: right;}
 .is-last{ background-color: red; color: white;}
-.piece{ }
+
 table.shogi {
-    border-collapse: collapse;
-    td {
-        border: 1px solid black;
-        width: 4rem;
-        height: 4rem;
-        text-align: center;
-        vertical-align: middle;
-        font-size: 3rem;
-    }
-    td.d {
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        font-size: 1.5rem;
-    }
-    td.l {
-        border-top: none;
-        border-bottom: none;
-        border-right: none;
-        font-size: 1.5rem;
-    }
+  border-collapse: collapse;
+
+  td {
+    border: 1px solid black;
+    width: 4rem;
+    height: 4rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 3rem;
+  }
+
+  td.d {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-size: 1.5rem;
+  }
+
+  td.l {
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+    font-size: 1.5rem;
+  }
 }
 
 .rotate {
-    transform: rotate(180deg);
-    display: inline-block;
+  transform: rotate(180deg);
+  display: inline-block;
+}
+
+td.white span {
+  transform: rotate(180deg);
+  display: inline-block;
 }
 
 .flex-container {
-    display: flex;
+  display: flex;
 }
 
 div {
-    margin: 1rem;
+  margin: 1rem;
 }
 
 
