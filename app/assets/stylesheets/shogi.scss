@@ -2,9 +2,23 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.capturedPiece-white{width: 5em}
-.capturedPiece-black{width: 5em; writing-mode: vertical-rl; text-align: right;}
-.is-last{ background-color: red; color: white;}
+.capturedPiece-white {
+  width: 5em;
+}
+
+.capturedPiece-black {
+  width: 5em;
+  writing-mode: vertical-rl;
+  text-align: right;
+}
+
+.highlight {
+  background-color: red;
+  color: white;
+}
+
+.piece {
+}
 
 table.shogi {
   border-collapse: collapse;
