@@ -5,18 +5,18 @@
 </div>
 
 <div>
-  <table class="shogi">
+  <table class="board">
     <tbody>
     <tr>
-      <td class="d">9</td>
-      <td class="d">8</td>
-      <td class="d">7</td>
-      <td class="d">6</td>
-      <td class="d">5</td>
-      <td class="d">4</td>
-      <td class="d">3</td>
-      <td class="d">2</td>
-      <td class="d">1</td>
+      <th>9</th>
+      <th>8</th>
+      <th>7</th>
+      <th>6</th>
+      <th>5</th>
+      <th>4</th>
+      <th>3</th>
+      <th>2</th>
+      <th>1</th>
     </tr>
     <% (1..9).each do |rank| %>
     <tr>
@@ -29,7 +29,7 @@
       %>
       <%= content_tag(:td, piece.to_s, class: classes.size > 0 ? classes : nil) %>
       <% end %>
-      <td class="l"><%= ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'][rank] %></td>
+      <th><%= ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'][rank] %></th>
     </tr>
     <% end %>
     </tbody>

@@ -12,41 +12,38 @@
   text-align: right;
 }
 
-.highlight {
-  background-color: #c3deb7;
-}
-
 @font-face {
   font-family: 'shogi';
   src: url('/fonts/shogi.woff') format('woff');
 }
 
-table.shogi {
-  font-family: 'shogi';
-
+table.board {
   border-collapse: collapse;
 
-  td {
-    border: 1px solid black;
+  th, td {
     width: 4rem;
     height: 4rem;
     text-align: center;
     vertical-align: middle;
-    font-size: 4.0rem;
   }
 
-  td.d {
-    border-top: none;
-    border-left: none;
-    border-right: none;
+  th {
     font-size: 1.5rem;
+    font-weight: 400;
   }
 
-  td.l {
-    border-top: none;
-    border-bottom: none;
-    border-right: none;
-    font-size: 1.5rem;
+  td {
+    border: 1px solid;
+    font-family: 'shogi';
+    font-size: 3.5rem;
+  }
+
+  td.rotate {
+    transform: rotate(0.5turn);
+  }
+
+  td.highlight {
+    background-color: #c3deb7;
   }
 }
 
@@ -55,9 +52,6 @@ span.rotate {
   display: inline-block;
 }
 
-td.rotate {
-  transform: rotate(0.5turn);
-}
 
 .flex-container {
   display: flex;
