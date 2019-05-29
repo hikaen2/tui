@@ -2,29 +2,6 @@
 
 module Shogi
 
-  module Side
-    BLACK = 0
-    WHITE = 1
-  end
-
-  module Type
-    FU = 0
-    KY = 1
-    KE = 2
-    GI = 3
-    KI = 4
-    KA = 5
-    HI = 6
-    OU = 7
-    TO = 8
-    NY = 9
-    NK = 10
-    NG = 11
-    _ = 12
-    UM = 13
-    RY = 14
-  end
-
   class Piece
     attr_accessor :side, :file, :rank, :type
 
@@ -35,18 +12,28 @@ module Shogi
       @type = type
     end
 
-    def to_s
-      ['歩', '香', '桂', '銀', '金', '角', '飛', '玉', 'と', '杏', '圭', '全', '〓', '馬', '龍'][@type]
+    def black?
+      @side == :black
     end
 
-    def inspect
-      "(#{@side},#{@file}#{@rank},#{@type})"
+    def white?
+      @side == :white
     end
+
+    def unpromote_type
+      {fu: :fu, ky: :ky, ke: :ke, gi: :gi, ki: :ki, ka: :ka, hi: :hi, ou: :ou, to: :fu, ny: :ky, nk: :ke, ng: :gi, um: :ka, ry: :hi}[@type]
+    end
+
+    def to_s
+      {fu: '歩', ky: '香', ke: '桂', gi: '銀', ki: '金', ka: '角', hi: '飛', ou: '玉', to: 'と', ny: '杏', nk: '圭', ng: '全', um: '馬', ry: '龍'}[@type]
+    end
+
+    NONE = Piece.new(nil, nil, nil, nil)
   end
 
 
   class Move
-    attr_accessor :side, :file_from, :rank_from, :file_to, :rank_to, :type
+    attr_accessor :side, :type
 
     def initialize(side, file_from, rank_from, file_to, rank_to, type)
       @side = side
@@ -58,26 +45,28 @@ module Shogi
     end
 
     def self.parse(str)
-      a = ['FU', 'KY', 'KE', 'GI', 'KI', 'KA', 'HI', 'OU', 'TO', 'NY', 'NK', 'NG', '〓', 'UM', 'RY']
       m = str.match(/^([+-])(\d)(\d)(\d)(\d)(..)/)
-        Move.new(m[1] == '+' ? Side::BLACK : Side::WHITE, m[2].to_i, m[3].to_i, m[4].to_i, m[5].to_i, a.index(m[6]))
+      Move.new(m[1] == '+' ? :black : :white, m[2].to_i, m[3].to_i, m[4].to_i, m[5].to_i, m[6].downcase.to_sym)
     end
 
-    def to_t
-      c = ['歩', '香', '桂', '銀', '金', '角', '飛', '王', 'と', '杏', '圭', '全', '〓', '馬', '龍']
-      sprintf('%s%s', @side == Side::BLACK ? ' ' : 'v', c[@type])
+    def from
+      [@file_from, @rank_from]
+    end
+
+    def to
+      [@file_to, @rank_to]
+    end
+
+    def drop?
+      @file_from == 0 && @rank_from == 0
     end
 
     def to_s
       a = ['０', '１', '２', '３', '４', '５', '６', '７', '８', '９']
       b = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九']
-      c = ['歩', '香', '桂', '銀', '金', '角', '飛', '王', 'と', '杏', '圭', '全', '〓', '馬', '龍']
-      return sprintf('%s%s%s%s(%s%s)', @side == Side::BLACK ? '▲' : '△', a[@file_to], b[@rank_to], c[@type], @file_from, @rank_from) if @rank_from != 0
-      return sprintf('%s%s%s%s打', @side == Side::BLACK ? '▲' : '△', a[@file_to], b[@rank_to], c[@type]) if @rank_from == 0
-    end
-
-    def inspect
-      "(#{@side},#{@file_from}#{@rank_from},#{@file_to}#{@rank_to},#{@type})"
+      c = {fu: '歩', ky: '香', ke: '桂', gi: '銀', ki: '金', ka: '角', hi: '飛', ou: '玉', to: 'と', ny: '杏', nk: '圭', ng: '全', um: '馬', ry: '龍'}[@type]
+      return sprintf('%s%s%s%s(%s%s)', @side == :black ? '▲' : '△', a[@file_to], b[@rank_to], c, @file_from, @rank_from) if @rank_from != 0
+      return sprintf('%s%s%s%s打', @side == :black ? '▲' : '△', a[@file_to], b[@rank_to], c) if @rank_from == 0
     end
   end
 
@@ -86,63 +75,55 @@ module Shogi
     attr_accessor :side, :pieces
 
     def initialize
-      @side = Side::BLACK
+      @side = :black
       @pieces = []
-
-      (1..9).each {|i| @pieces << Piece.new(Side::WHITE, i, 3, Type::FU) }
-      @pieces << Piece.new(Side::WHITE, 2, 2, Type::KA)
-      @pieces << Piece.new(Side::WHITE, 8, 2, Type::HI)
-      @pieces << Piece.new(Side::WHITE, 1, 1, Type::KY)
-      @pieces << Piece.new(Side::WHITE, 2, 1, Type::KE)
-      @pieces << Piece.new(Side::WHITE, 3, 1, Type::GI)
-      @pieces << Piece.new(Side::WHITE, 4, 1, Type::KI)
-      @pieces << Piece.new(Side::WHITE, 5, 1, Type::OU)
-      @pieces << Piece.new(Side::WHITE, 6, 1, Type::KI)
-      @pieces << Piece.new(Side::WHITE, 7, 1, Type::GI)
-      @pieces << Piece.new(Side::WHITE, 8, 1, Type::KE)
-      @pieces << Piece.new(Side::WHITE, 9, 1, Type::KY)
-      (1..9).each {|i| @pieces << Piece.new(Side::BLACK, i, 7, Type::FU) }
-      @pieces << Piece.new(Side::BLACK, 8, 8, Type::KA)
-      @pieces << Piece.new(Side::BLACK, 2, 8, Type::HI)
-      @pieces << Piece.new(Side::BLACK, 1, 9, Type::KY)
-      @pieces << Piece.new(Side::BLACK, 2, 9, Type::KE)
-      @pieces << Piece.new(Side::BLACK, 3, 9, Type::GI)
-      @pieces << Piece.new(Side::BLACK, 4, 9, Type::KI)
-      @pieces << Piece.new(Side::BLACK, 5, 9, Type::OU)
-      @pieces << Piece.new(Side::BLACK, 6, 9, Type::KI)
-      @pieces << Piece.new(Side::BLACK, 7, 9, Type::GI)
-      @pieces << Piece.new(Side::BLACK, 8, 9, Type::KE)
-      @pieces << Piece.new(Side::BLACK, 9, 9, Type::KY)
+      @pieces << Piece.new(:black, 5, 9, :ou)
+      @pieces << Piece.new(:white, 5, 1, :ou)
+      @pieces << Piece.new(:black, 2, 8, :hi)
+      @pieces << Piece.new(:white, 8, 2, :hi)
+      @pieces << Piece.new(:black, 8, 8, :ka)
+      @pieces << Piece.new(:white, 2, 2, :ka)
+      [4, 6].each {|file| @pieces << Piece.new(:black, file, 9, :ki) }
+      [4, 6].each {|file| @pieces << Piece.new(:white, file, 1, :ki) }
+      [3, 7].each {|file| @pieces << Piece.new(:black, file, 9, :gi) }
+      [3, 7].each {|file| @pieces << Piece.new(:white, file, 1, :gi) }
+      [2, 8].each {|file| @pieces << Piece.new(:black, file, 9, :ke) }
+      [2, 8].each {|file| @pieces << Piece.new(:white, file, 1, :ke) }
+      [1, 9].each {|file| @pieces << Piece.new(:black, file, 9, :ky) }
+      [1, 9].each {|file| @pieces << Piece.new(:white, file, 1, :ky) }
+      (1..9).each {|file| @pieces << Piece.new(:black, file, 7, :fu) }
+      (1..9).each {|file| @pieces << Piece.new(:white, file, 3, :fu) }
     end
 
-    def look_at(file, rank)
-      @pieces.find {|e| e.file == file and e.rank == rank}
+    def [](file, rank)
+      look_at(file, rank) or Piece::NONE
     end
 
     def do_move(move)
-      to = self.look_at(move.file_to, move.rank_to)
-      if to != nil
-        @pieces << Piece.new(move.side, 0, 0, to.type & 0x07)
-        @pieces.delete_at(@pieces.find_index{|e| e.file == move.file_to && e.rank == move.rank_to})
-      end
+      to = look_at(*move.to)
+      to.side, to.type, to.file, to.rank = move.side, to.unpromote_type, 0, 0 if !to.nil?
 
-      if move.file_from == 0
-        @pieces.delete_at(@pieces.find_index{|e| e.side == move.side && e.file == 0 && e.rank == 0 && e.type == move.type})
-      else
-        @pieces.delete_at(@pieces.find_index{|e| e.file == move.file_from && e.rank == move.rank_from})
-      end
+      from = move.drop? ? look_by(move.side, move.type) : look_at(*move.from)
+      from.type, from.file, from.rank = move.type, *move.to
 
-      @pieces << Piece.new(move.side, move.file_to, move.rank_to, move.type)
-      @side = @side == Side::BLACK ? Side::WHITE : Side::BLACK
+      @side = @side == :black ? :white : :black
     end
 
     def hand_black
-      @pieces.select {|e| e.side == Side::BLACK && e.file == 0}.sort_by {|e| e.type}.reverse
+      @pieces.select {|e| e.side == :black && e.file == 0 && e.rank == 0}
     end
 
     def hand_white
-      @pieces.select {|e| e.side == Side::WHITE && e.file == 0}.sort_by {|e| e.type}.reverse
+      @pieces.select {|e| e.side == :white && e.file == 0 && e.rank == 0}
+    end
+
+    private
+    def look_at(file, rank)
+      @pieces.find {|e| e.file == file && e.rank == rank}
+    end
+
+    def look_by(side, type)
+      @pieces.find {|e| e.side == side && e.type == type && e.file == 0 && e.rank == 0}
     end
   end
 end
-

@@ -50,13 +50,13 @@ table.shogi {
   }
 }
 
-.rotate {
-  transform: rotate(180deg);
+span.rotate {
+  transform: rotate(0.5turn);
   display: inline-block;
 }
 
-td.white {
-  transform: rotate(180deg);
+td.rotate {
+  transform: rotate(0.5turn);
 }
 
 .flex-container {

@@ -1,5 +1,5 @@
 <div class="capturedPiece-white">
-  <span style="writing-mode: vertical-rl; font-size: 3rem; transform: rotate(180deg);">
+  <span style="writing-mode: vertical-rl; font-size: 3rem; transform: rotate(0.5turn);">
     <%= @pos.hand_white.map(&:to_s).join %>
   </span>
 </div>
@@ -19,13 +19,18 @@
       <td class="d">1</td>
     </tr>
     <% (1..9).each do |rank| %>
-      <tr>
-        <% (1..9).to_a.reverse.each do |file| %>
-          <% piece = @pos.look_at(file, rank) %>
-          <td class="<%= piece == nil ? '' : piece.side == 0 ? 'black' : 'white' %><%= ' highlight' if (@last.file_to == file && @last.rank_to == rank) %>"><%= piece %></td>
-        <% end %>
-        <td class="l"><%= ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'][rank] %></td>
-      </tr>
+    <tr>
+      <% (1..9).to_a.reverse.each do |file| %>
+      <%
+        piece = @pos[file, rank]
+        classes = []
+        classes << 'rotate' if piece.white?
+        classes << 'highlight' if @last.to == [file, rank]
+      %>
+      <%= content_tag(:td, piece.to_s, class: classes.size > 0 ? classes : nil) %>
+      <% end %>
+      <td class="l"><%= ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'][rank] %></td>
+    </tr>
     <% end %>
     </tbody>
   </table>
