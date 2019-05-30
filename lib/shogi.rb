@@ -6,7 +6,7 @@ module Shogi
     attr_accessor :side, :file, :rank, :type
 
     def initialize(side, file, rank, type)
-      @side = side;
+      @side = side
       @file = file
       @rank = rank
       @type = type
