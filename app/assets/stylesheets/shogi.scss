@@ -38,10 +38,6 @@ table.board {
     font-size: 3.5rem;
   }
 
-  td.rotate {
-    transform: rotate(0.5turn);
-  }
-
   td.highlight {
     background-color: #c3deb7;
   }
@@ -51,7 +47,6 @@ span.rotate {
   transform: rotate(0.5turn);
   display: inline-block;
 }
-
 
 .flex-container {
   display: flex;
