@@ -32,5 +32,8 @@ module Tui
 
 
     config.log_path = 'log'
+
+    # https://www.rubydoc.info/github/slim-template/slim#Configuring_Slim
+    Slim::Engine.options[:pretty] = false
   end
 end
