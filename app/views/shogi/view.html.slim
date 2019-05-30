@@ -3,7 +3,7 @@ p ▲#{@name_black} △#{@name_white}
 div.flex-container
   div
     p 棋譜
-    select#kifu data-filename=params[:id] size="30"
+    select#kifu data-filename=params[:id] size=30 autofocus=true
       - @moves.each.with_index(1) do |move, i|
         option value=i selected=(i == @moves.size) #{i} #{move}
 
