@@ -1,0 +1,12 @@
+table#myTable
+  thead
+    tr
+      th name
+      th bytes
+      th mtime
+  tbody
+    - @files.each do |file|
+      tr
+        td = link_to(file[:name], shogi_view_path(file[:name]))
+        td = file[:size]
+        td = file[:mtime]
